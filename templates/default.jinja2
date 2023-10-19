@@ -1,0 +1,65 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+
+<script type="text/javascript">
+var timer = function() {
+    setInterval(function(){ window.location.reload(); }, 10000);
+};
+timer();
+</script>
+
+<h1>Summary of URL Probes since {{ url_summary[0].past_datetime }} for the last {{ summary_interval_min }} mins({{ summary_interval_sec }}secs) at a probe interval of {{ probe_interval }} secs...</h1>
+
+  <!-- CSS style to set alternate table 
+            row using color -->
+    <style>
+        table, th, td {
+        border: 1px solid black;
+        }
+          
+        th, td {
+            padding: 15px;
+        }
+          
+        tr:nth-child(even) {
+            background-color: Lightgreen;
+        }
+    </style>
+
+
+</head>
+
+<div class="table-responsive">
+    <table>
+        <thead class="thead-dark">
+            <tr bgcolor="LightGrey">
+                <th>No.</th>
+                <!-- th>Since when</th -->
+                <th>Name</th>
+                <th>URL</th>
+                <th>200 Series Status Code</th>
+                <th>300 Series Status Code</th>
+                <th>400 Series Status Code</th>
+                <th>500 Series Status Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url_entry in url_summary %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <!-- td style="text-align: center">{{ url_entry.past_datetime }}</td -->
+                <td style="text-align: center">{{ url_entry.name }}</td>
+                <td style="text-align: center">{{ url_entry.url }}</td>
+                <td style="text-align: center">{{ url_entry.http200_sum }}</td>
+                <td style="text-align: center">{{ url_entry.http300_sum }}</td>
+                <td style="text-align: center">{{ url_entry.http400_sum }}</td>
+                <td style="text-align: center">{{ url_entry.http500_sum }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

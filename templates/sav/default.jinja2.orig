@@ -1,0 +1,55 @@
+{% extends 'base.jinja2' %}
+
+{% block content %}
+
+<h1>Results of URL Probing for the last 1 hour...</h1>
+
+<script type="text/javascript">
+var timer = function() {
+    setTimeout(function(){ window.location.reload(); }, {{ wait_time }});
+};
+timer();
+</script>
+
+<style>
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 15px;
+}
+</style>
+</head>
+
+<div class="table-responsive">
+    <table class="table table-sm table-borderless mb-0">
+        <thead class="thead-dark">
+            <tr>
+                <th>No.</th>
+                <th>Name</th>
+                <th>URL</th>
+                <th>200 Series Status Code</th>
+                <th>300 Series Status Code</th>
+                <th>400 Series Status Code</th>
+                <th>500 Series Status Code</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for url_entry in url_data %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td style="text-align: center">{{ url_entry.name }}</td>
+                <td style="text-align: center">{{ url_entry.url }}</td>
+                <td style="text-align: center">{{ url_entry.http200 }}</td>
+                <td style="text-align: center">{{ url_entry.http300 }}</td>
+                <td style="text-align: center">{{ url_entry.http400 }}</td>
+                <td style="text-align: center">{{ url_entry.http500 }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

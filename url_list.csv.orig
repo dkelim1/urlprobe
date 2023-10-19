@@ -1,0 +1,4 @@
+name, url
+google, https://httpstat.us/200
+yahoo, https://httpstat.us/401
+bcs, https://httpstat.us/521
